@@ -16,6 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_1 ="ID";
     public static final String COL_2 ="FELHASZN";
     public static final String COL_3 ="SULY";
+    public static final String c="valami";
     public static final String COL_4 ="IDO";
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null,1);
