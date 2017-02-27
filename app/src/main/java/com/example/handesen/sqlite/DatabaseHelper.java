@@ -2,6 +2,7 @@ package com.example.handesen.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -45,6 +46,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
 
+
+    }
+
+    public Cursor getAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
+        return res;
+    }
+
+
+    public boolean updateData(String id,String felh,String suly,String datum){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID",id);
+        contentValues.put(COL_2,felh);
+        contentValues.put(COL_3,suly);
+        contentValues.put(COL_4,datum);
+        db.update(TABLE_NAME,contentValues, "ID = ?",new String[] {id });
+        return true;
+
+    }
+
+    public Integer deleteData (String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME,"ID = ?", new String[] {id });
 
     }
 }
