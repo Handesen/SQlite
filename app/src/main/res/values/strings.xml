@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">SQlite</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Navigáció nyitása</string>
+    <string name="navigation_drawer_close">Navigáció zárása</string>
+
+    <string name="action_settings">Beállítás</string>
+    <string name="log_password">Jelszó</string>
+    <string name="log_username">Felhasználónév</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="login_button">Belépés</string>
+    <string name="register_button">Regisztráció</string>
+
+    <string-array name="uzemanyag">
+        <item>Kérlek válasz</item>
+        <item>Benzin</item>
+        <item>Diesel</item>
+        <item>LPG</item>
+        <item>Elektromos</item>
+    </string-array>
 </resources>
