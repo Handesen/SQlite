@@ -2,6 +2,7 @@ package com.example.handesen.sqlite;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class NewCar extends AppCompatActivity {
     DatabaseHelper myDb;
@@ -54,6 +57,11 @@ public class NewCar extends AppCompatActivity {
 
                 boolean isInserted = myDb.insertDataGarage(modellname,modelltype,license,uzemanyag,km,avgfuel);
                 if(isInserted) {
+                    SharedPreferences prefs = getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    int lastcar = myDb.getLastCarid(license);
+                    editor.putInt("carid", lastcar);
+                    editor.commit();
                     Intent backmain = new Intent(NewCar.this, MainActivity.class);
                     NewCar.this.startActivity(backmain);
                 }

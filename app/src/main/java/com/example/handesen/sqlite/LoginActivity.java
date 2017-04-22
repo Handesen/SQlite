@@ -1,10 +1,13 @@
 package com.example.handesen.sqlite;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -51,9 +54,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+
 public class LoginActivity extends AppCompatActivity {
 
     public static String username;
+    public static int userid;
+    DatabaseHelper mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
                 LoginActivity.this.startActivity(registerIntent);
             }
@@ -166,23 +174,52 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject js = new JSONObject(input);
             JSONArray ja = js.getJSONArray("result");
             int count = 0;
-          // String username,email,name,created_at,remember_token;
-
             while(count<ja.length()){
                 JSONObject jo = ja.getJSONObject(count);
-              /*  username = jo.getString("username");
-                email = jo.getString("email");
-                name = jo.getString("name");
-                created_at = jo.getString("created_at");
-                remember_token = jo.getString("remember_token");
-                buff.append(username + "/" + email + "/" + name + "/" + created_at + "/" + remember_token + "\n");*/
+
                 boolean succes = jo.getBoolean("succes");
                 if (succes){
+                    SharedPreferences prefs = getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    mydb = new DatabaseHelper(this);
+                    userid = mydb.getUserID(username);
+
+
                     String remember_token = jo.getString("remember_token");
-                    Intent mainintent = new Intent(LoginActivity.this, MainActivity.class);
-                    mainintent.putExtra("remember_token",remember_token);
-                    mainintent.putExtra("username",username);
-                    LoginActivity.this.startActivity(mainintent);
+
+
+                    String restoredText = prefs.getString("username", null);
+                    int lastcarid = prefs.getInt("_id",-1);
+                    if (restoredText != null)
+                    {
+                        if (restoredText.equals(username) && lastcarid !=-1){
+                            Intent mainintent = new Intent(LoginActivity.this, MainActivity.class);
+                            mainintent.putExtra("remember_token",remember_token);
+                            LoginActivity.this.startActivity(mainintent);
+
+                        }
+                        else{
+                            editor.putString("username", username);
+                            editor.commit();
+                            Intent mainintent = new Intent(LoginActivity.this, CarChangeActivity.class);
+                            mainintent.putExtra("remember_token",remember_token);
+                            LoginActivity.this.startActivity(mainintent);
+
+
+                        }
+
+                    }
+                    else{
+
+                        editor.putString("username", username);
+                        editor.commit();
+                        Intent mainintent = new Intent(LoginActivity.this, CarChangeActivity.class);
+                        mainintent.putExtra("remember_token",remember_token);
+                        LoginActivity.this.startActivity(mainintent);
+                    }
+
+
+
                 }
                 else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);

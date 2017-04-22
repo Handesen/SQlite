@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="Válasz Szervízt! "
+            android:text="Válasz Tankolást! "
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Medium"
             android:textSize="30sp" />
@@ -32,7 +32,7 @@
         android:orientation="vertical">
 
         <ListView
-            android:id="@+id/serviceListView"
+            android:id="@+id/fuelingListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"></ListView>
@@ -46,25 +46,19 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_seradd"
+            android:id="@+id/btn_fueladd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Új szervíz" />
 
         <Button
-            android:id="@+id/btn_serdelete"
+            android:id="@+id/btn_fueldelete"
             android:layout_width="wrap_content"
             android:layout_height="53dp"
             android:layout_weight="1"
             android:text="szervíz törlése" />
 
-        <Button
-            android:id="@+id/btn_sermod"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Módosít" />
     </LinearLayout>
 
 

@@ -23,14 +23,14 @@ public class GarageActivity extends AppCompatActivity {
 
 
 
-        mydb = new DatabaseHelper(this);
-        aListView = (ListView) findViewById(R.id.carList);
-        Cursor c = mydb.getAllData();
-        String[] cars = new String[] {"make","license_plate"};
-        int[] toViewId = new int[] {R.id.make,R.id.license_plate};
-        SimpleCursorAdapter myCursorAdapter;
-        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),R.layout.list_item, c , cars, toViewId , 0);
-        aListView.setAdapter(myCursorAdapter);
+//        mydb = new DatabaseHelper(this);
+//        aListView = (ListView) findViewById(R.id.carList);
+//        Cursor c = mydb.getAllData();
+//        String[] cars = new String[] {"make","license_plate"};
+//        int[] toViewId = new int[] {R.id.make,R.id.license_plate};
+//        SimpleCursorAdapter myCursorAdapter;
+//        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),R.layout.list_item, c , cars, toViewId , 0);
+//        aListView.setAdapter(myCursorAdapter);
 
     }
 
